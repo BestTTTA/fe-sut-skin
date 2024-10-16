@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function PatientDetails() {
   return (
-    <div className="w-full relative overflow-hidden" style={{ minHeight: '1000px' }}> 
+    <div className="w-full relative overflow-hidden" style={{ minHeight: '1000px' }}>
       {/* Background Image */}
       <Image
         src="/v1.png"
@@ -42,25 +42,36 @@ export default function PatientDetails() {
 
       {/* Search Section */}
       <div className="flex justify-start gap-4 mt-10 w-full ml-40">
-        <button
-          className="bg-gray-200 rounded shadow"
-          style={{ width: '196px', height: '39px' }}
-        >
-          ค้นหาโดย ID
-        </button>
-        <button
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <input
+            type="text"
+            placeholder="ค้นหาโดย ID"
+            style={{ height: '39px', width: '196px', marginRight: '10px' }}
+            className="border border-gray-300 rounded px-2"
+          />
+
+        </div>
+
+        <select
           className="bg-gray-200 rounded shadow"
           style={{ width: '200px', height: '39px' }}
         >
-          ค้นหาโดยโรคที่ติดตาม
-        </button>
+          <option value="" disabled selected>
+            ค้นหาโดยโรคที่ติดตาม
+          </option>
+          <option value="disease1">โรคที่ 1</option>
+          <option value="disease2">โรคที่ 2</option>
+          <option value="disease3">โรคที่ 3</option>
+          <option value="disease4">โรคที่ 4</option>
+        </select>
+
       </div>
 
       {/* Main Content Section */}
       <div className="flex gap-10 mt-10 w-full justify-start ml-auto pr-10">
         {/* Form Section */}
         <div className="bg-white p-5 rounded-lg ml-40 shadow-lg" style={{ width: '650px', height: '619px' }}>
-          <h2 className="text-center text-2xl font-bold mb-6">ข้อมูล</h2> 
+          <h2 className="text-center text-2xl font-bold mb-6">ข้อมูล</h2>
 
           <div className="flex flex-col gap-4 text-lg leading-7">
             <p>วันที่: 16 ตุลาคม 2567</p>
