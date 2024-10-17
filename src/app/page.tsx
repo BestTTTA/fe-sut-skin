@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Sutimage from "./Image/ImageSUT.jpg";
 import SutLogo from "./Image/SUTlogo.png";
+import Link from "next/link";
 
 export default function Login() {
   return (
@@ -14,11 +15,7 @@ export default function Login() {
         />
       </div>
       <div className="w-1/2 flex flex-col justify-center items-center">
-        <Image
-          src={SutLogo}
-          className="w-1/2 h-auto mb-4" 
-          alt="SUT_Logo"
-        />
+        <Image src={SutLogo} className="w-1/2 h-auto mb-4" alt="SUT_Logo" />
         <div className="bg-white border border-gray-300 rounded-lg shadow-md p-8 w-1/2 mt-4">
           <h1 className="text-5xl text-center mb-16">เข้าสู่ระบบ</h1>
           <form className="flex flex-col items-center space-y-4">
@@ -49,12 +46,12 @@ export default function Login() {
                 ลืมรหัสผ่าน?
               </a>
             </div>
-            <button
-              type="submit"
+            <Link
+              href="/UploadImage"
               className="bg-gradient-to-r from-orange-500 to-gray-500 text-white font-bold py-2 px-16 rounded-lg shadow-lg transition duration-300 ease-in-out hover:from-orange-600 hover:to-gray-600"
             >
               เข้าสู่ระบบ
-            </button>
+            </Link>
           </form>
         </div>
       </div>
