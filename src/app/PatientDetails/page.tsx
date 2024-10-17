@@ -30,7 +30,7 @@ export default function PatientDetails() {
             </div>
           </div>
           <div className="flex flex-col gap-10 items-center w-full h-full md:w-1/2 p-2">
-          <Image src="/Normal_image_skin.png" alt="Image" width={600} height={700} className="bg-[#F26522] bg-opacity-35 p-4 px-10 mt-10 rounded-md"></Image>
+          <Image src="/skin_image.png" alt="Image" width={600} height={700} className="bg-[#F26522] bg-opacity-35 p-4 px-10 mt-10 rounded-md"></Image>
           <Image src="/image_predicted.png" alt="Image" width={600} height={700} className="bg-white p-4 px-10 drop-shadow-lg shadow-lg rounded-md"></Image>
           </div>
         </div>
