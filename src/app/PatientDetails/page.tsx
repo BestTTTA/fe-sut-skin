@@ -15,7 +15,14 @@ export default function PatientDetails() {
                 className="w-full h-auto p-2 border border-gray-300 rounded"
               />
               <select className="w-full h-auto p-2 border border-gray-300 rounded">
-                <option value="">Select</option>
+                <option value="">โรคที่ต้องการติดตาม</option>
+                <option value="1">
+                  Superficial basal cell carcinoma (sBCC)
+                </option>
+                <option value="2">Actinic keratose</option>
+                <option value="3">Bowen disease</option>
+                <option value="4">หูด(Cutaneous wart)</option>
+                <option value="5">รักษาสิวและรอยแผลเป็นจากสิว</option>
               </select>
             </div>
             <div className="flex flex-col p-4 gap-6 w-full sm:h-[500px] bg-white border rounded-lg drop-shadow-lg">
@@ -30,8 +37,20 @@ export default function PatientDetails() {
             </div>
           </div>
           <div className="flex flex-col gap-10 items-center w-full h-full md:w-1/2 p-2">
-          <Image src="/skin_image.png" alt="Image" width={600} height={700} className="bg-[#F26522] bg-opacity-35 p-4 px-10 mt-10 rounded-md"></Image>
-          <Image src="/predicted.png" alt="Image Predicted" width={600} height={700} className="bg-white p-4 px-10 drop-shadow-lg shadow-lg rounded-md"></Image>
+            <Image
+              src="/skin_image.png"
+              alt="Image"
+              width={600}
+              height={700}
+              className="bg-[#F26522] bg-opacity-35 p-4 px-10 mt-10 rounded-md"
+            ></Image>
+            <Image
+              src="/predicted.png"
+              alt="Image Predicted"
+              width={600}
+              height={700}
+              className="bg-white p-4 px-10 drop-shadow-lg shadow-lg rounded-md"
+            ></Image>
           </div>
         </div>
       </div>
