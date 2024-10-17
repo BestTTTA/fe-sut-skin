@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["200"], 
-});
 
 const noto_sans_thai = Noto_Sans_Thai({
   subsets: ["latin"],
