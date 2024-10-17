@@ -91,7 +91,7 @@ export default function UploadImage() {
             {uploadedImage ? (
               <div className="flex w-full relative drop-shadow-lg">
                 <Image
-                  src="/Image_predicted.png"
+                  src="/predicted.png"
                   alt="Uploaded Image"
                   className="w-full rounded-lg"
                   width={400}
