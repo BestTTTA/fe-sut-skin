@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -7,31 +8,35 @@ import Navbar from "../components/Navbar";
 import { LuUploadCloud } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
 import { CiNoWaitingSign } from "react-icons/ci";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 export default function UploadImage() {
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState("");
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedDate(e.target.value);
+  };
 
-  // ฟังก์ชันเพื่อจัดการไฟล์ที่ถูกอัปโหลด
+  const [gender, setGender] = useState("");
+  const handleGenderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setGender(e.target.value);
+  };
+
+  const [hasSideEffects, setHasSideEffects] = useState<string>("");
+  const handleSideEffectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setHasSideEffects(e.target.value);
+  };
+
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     const reader = new FileReader();
-
     reader.onload = () => {
       setUploadedImage(reader.result as string);
     };
-
     reader.readAsDataURL(file);
   }, []);
-
-  // ฟังก์ชันเพื่อลบรูปภาพ
   const handleRemoveImage = () => {
-    setUploadedImage(null); // เคลียร์ค่ารูปภาพ
+    setUploadedImage(null);
   };
-
-  // ใช้ useDropzone สำหรับ drag-and-drop
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "image/jpeg": [], "image/png": [] },
@@ -43,7 +48,7 @@ export default function UploadImage() {
       <Navbar />
       <div className="sm:flex w-full h-full">
         <div className="flex justify-center items-center w-full flex-col">
-          <div className="flex w-full sm:h-full h-80 relative overflow-hidden sm:p-12 p-4">
+          <div className="flex w-full sm:h-full h-80 overflow-hidden sm:p-8 p-4">
             {uploadedImage ? (
               <div className="flex relative">
                 <Image
@@ -82,7 +87,7 @@ export default function UploadImage() {
             )}
           </div>
 
-          <div className="flex w-full sm:h-full h-80 relative overflow-hidden sm:p-12 p-4">
+          <div className="flex w-full sm:h-full h-80 overflow-hidden sm:p-8 p-4">
             {uploadedImage ? (
               <div className="flex w-full relative drop-shadow-lg">
                 <Image
@@ -110,75 +115,72 @@ export default function UploadImage() {
                 className="w-full p-2 border border-gray-300 rounded"
               />
 
-              <div className="flex w-full gap-x-4">
-                <DatePicker
-                  selected={selectedDate}
-                  onChange={(date: Date | null) => setSelectedDate(date)}
-                  dateFormat="dd/MM/yyyy"
-                  placeholderText="วันที่"
-                  className="w-40 p-2 border border-gray-300 rounded text-sm"
-                  isClearable
-                  showPopperArrow={false}
-                  showMonthDropdown
-                  showYearDropdown
-                  dropdownMode="select"
+              <div className="flex w-full gap-4 flex-wrap">
+                <input
+                  type="number"
+                  placeholder="อายุ"
+                  className="w-40 flex-auto p-2 border border-gray-300 rounded"
                 />
 
-                <select className="w-full p-2 border border-gray-300 rounded">
-                  <option value="">เพศ</option>
-                  <option value="male">ชาย</option>
-                  <option value="female">หญิง</option>
+                <select
+                  id="gender"
+                  value={gender}
+                  onChange={handleGenderChange}
+                  className="block w-40 flex-auto  p-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="" disabled>
+                    -- Select Gender --
+                  </option>
+                  <option value="ชาย">ชาย</option>
+                  <option value="หญิง">หญิง</option>
                 </select>
 
                 <input
-                  type="text"
-                  placeholder="อายุ"
-                  className="w-full p-2 border border-gray-300 rounded"
+                  type="date"
+                  id="date"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  className="block flex-auto w-40 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
 
-              {/* Treatment Method */}
               <input
                 type="text"
                 placeholder="วิธีการรักษา"
                 className="w-full p-2 border border-gray-300 rounded"
               />
 
-              {/* Disease Selection */}
               <select className="w-full p-2 border border-gray-300 rounded">
-                <option value="">โรคที่ต้องการรักษา</option>
-                <option value="ไข้หวัด">ไข้หวัด</option>
-                <option value="ไข้เลือดออก">ไข้เลือดออก</option>
-                <option value="มะเร็ง">มะเร็ง</option>
-                <option value="เบาหวาน">เบาหวาน</option>
-                <option value="ความดันโลหิตสูง">ความดันโลหิตสูง</option>
-                <option value="หัวใจ">โรคหัวใจ</option>
-                <option value="ปอดบวม">ปอดบวม</option>
-                <option value="หลอดเลือดสมอง">หลอดเลือดสมอง</option>
-                <option value="ปวดท้อง">ปวดท้อง</option>
-                <option value="กระเพาะอาหารอักเสบ">กระเพาะอาหารอักเสบ</option>
-                <option value="ภูมิแพ้">ภูมิแพ้</option>
-                <option value="ตับแข็ง">ตับแข็ง</option>
-                <option value="ไตวาย">ไตวาย</option>
-                <option value="ไขข้ออักเสบ">ไขข้ออักเสบ</option>
-                <option value="อื่นๆ">อื่นๆ</option>
+                <option value="">โรคที่ต้องการติดตาม</option>
+                <option value="1">
+                  Superficial basal cell carcinoma (sBCC)
+                </option>
+                <option value="2">Actinic keratose</option>
+                <option value="3">Bowen disease</option>
+                <option value="4">หูด(Cutaneous wart)</option>
+                <option value="5">รักษาสิวและรอยแผลเป็นจากสิว</option>
               </select>
 
-              {/* Post-Recovery Status */}
-              <select className="w-full p-2 border border-gray-300 rounded">
-                <option>หลังจากหาย</option>
-              </select>
-
-              {/* Additional Details */}
-              <textarea
+              <select
                 className="w-full p-2 border border-gray-300 rounded"
-                rows={3}
-                placeholder="รายละเอียดอื่นๆ"
-              ></textarea>
+                value={hasSideEffects}
+                onChange={handleSideEffectChange}
+              >
+                <option value="no">ไม่มี</option>
+                <option value="yes">มี</option>
+              </select>
+
+              {hasSideEffects === "yes" && (
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded mt-4"
+                  rows={3}
+                  placeholder="รายละเอียดเพิ่มเติม"
+                ></textarea>
+              )}
             </form>
 
-            <button className="p-2 w-full mt-6 bg-orange-500 text-white rounded text-xl">
-              ตกลง
+            <button className="p-2 w-full mt-6 bg-orange-500 text-white rounded text-xl hover:bg-orange-300">
+              บันทึกข้อมูล
             </button>
           </div>
         </div>
