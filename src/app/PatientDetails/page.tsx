@@ -1,60 +1,23 @@
-import Image from 'next/image';
+import Image from "next/image";
+import Navbar from "../components/Navbar";
 
 export default function PatientDetails() {
   return (
-    <div className="w-full relative overflow-hidden" style={{ minHeight: '1000px' }}>
-      {/* Background Image */}
-      <Image
-        src="/v1.png"
-        alt="SUT University Header"
-        width={1512}
-        height={84}
-        className="w-full h-auto"
-      />
-
-      {/* Logo Positioned Over Background (Left) */}
-      <div className="absolute top-2 left-4">
-        <Image
-          src="/v2.png"
-          alt="SUT Logo"
-          width={315}
-          height={70}
-          className="object-contain"
-        />
-      </div>
-
-      {/* Admin Image Positioned Over Background (Right) */}
-      <div className="absolute top-5 right-4 flex items-center">
-        <p
-          className="text-white text-lg mr-2"
-          style={{ width: '96px', height: '39px', fontSize: '28px', lineHeight: '39px' }}
-        >
-          Admin
-        </p>
-        <Image
-          src="/v3.png"
-          alt="Admin Image"
-          width={60}
-          height={60}
-          className="rounded-full object-cover"
-        />
-      </div>
-
-      {/* Search Section */}
+    <div className="w-full relative overflow-hidden h-dvh">
+      <Navbar />
       <div className="flex justify-start gap-4 mt-10 w-full ml-40">
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <input
             type="text"
             placeholder="ค้นหาโดย ID"
-            style={{ height: '39px', width: '196px', marginRight: '10px' }}
+            style={{ height: "39px", width: "196px", marginRight: "10px" }}
             className="border border-gray-300 rounded px-2"
           />
-
         </div>
 
         <select
           className="bg-gray-200 rounded shadow"
-          style={{ width: '200px', height: '39px' }}
+          style={{ width: "200px", height: "39px" }}
         >
           <option value="" disabled selected>
             ค้นหาโดยโรคที่ติดตาม
@@ -64,13 +27,13 @@ export default function PatientDetails() {
           <option value="disease3">โรคที่ 3</option>
           <option value="disease4">โรคที่ 4</option>
         </select>
-
       </div>
 
-      {/* Main Content Section */}
       <div className="flex gap-10 mt-10 w-full justify-start ml-auto pr-10">
-        {/* Form Section */}
-        <div className="bg-white p-5 rounded-lg ml-40 shadow-lg" style={{ width: '650px', height: '619px' }}>
+        <div
+          className="bg-white p-5 rounded-lg ml-40 shadow-lg"
+          style={{ width: "650px", height: "619px" }}
+        >
           <h2 className="text-center text-2xl font-bold mb-6">ข้อมูล</h2>
 
           <div className="flex flex-col gap-4 text-lg leading-7">
@@ -85,8 +48,16 @@ export default function PatientDetails() {
         </div>
 
         <div className="flex flex-col items-end w-full">
-          {/* First Image Section with a background */}
-          <div className="p-3 bg-[#f9d6cc] rounded-lg mb-10" style={{ width: '658px', height: '352px', border: '2px dashed #f9a99c', marginTop: '-90px', transform: 'translateX(-60px)' }}>
+          <div
+            className="p-3 bg-[#f9d6cc] rounded-lg mb-10"
+            style={{
+              width: "658px",
+              height: "352px",
+              border: "2px dashed #f9a99c",
+              marginTop: "-90px",
+              transform: "translateX(-60px)",
+            }}
+          >
             <div className="flex justify-center items-center h-full w-full">
               <Image
                 src="/image 1 (1).png"
@@ -99,7 +70,15 @@ export default function PatientDetails() {
           </div>
 
           {/* Second Image Section with a different background */}
-          <div className="relative p-3 bg-white rounded-lg shadow-lg" style={{ width: '658px', height: '366px', transform: 'translateX(-60px)', zIndex: 2 }}>
+          <div
+            className="relative p-3 bg-white rounded-lg shadow-lg"
+            style={{
+              width: "658px",
+              height: "366px",
+              transform: "translateX(-60px)",
+              zIndex: 2,
+            }}
+          >
             <div className="flex justify-center items-center h-full w-full">
               <Image
                 src="/image 2 (1).png"
@@ -112,7 +91,10 @@ export default function PatientDetails() {
           </div>
 
           {/* Background Design Element Positioned */}
-          <div className="absolute bottom-0 right-0" style={{ width: '900px', height: '740px', zIndex: 1 }}>
+          <div
+            className="absolute bottom-0 right-0"
+            style={{ width: "900px", height: "740px", zIndex: 1 }}
+          >
             <Image
               src="/g1.png"
               alt="Graphic Design"
