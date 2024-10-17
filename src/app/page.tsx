@@ -24,13 +24,13 @@ export default function Login() {
           <form className="flex flex-col items-center space-y-4">
             <input
               type="text"
-              placeholder="รหัสพนักงาน"
+              placeholder="Username"
               required
               className="bg-white border border-gray-300 rounded px-4 py-2 w-full shadow-md"
             />
             <input
               type="password"
-              placeholder="รหัสผ่าน"
+              placeholder="Password"
               required
               className="bg-white border border-gray-300 rounded px-4 py-2 w-full shadow-md"
             />
