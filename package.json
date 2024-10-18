@@ -16,6 +16,7 @@
     "@nextui-org/date-picker": "^2.1.8",
     "@nextui-org/dropdown": "^2.1.31",
     "@nextui-org/react": "^2.4.8",
+    "axios": "^1.7.7",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "flowbite": "^2.5.2",
