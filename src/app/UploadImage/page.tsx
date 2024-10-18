@@ -149,6 +149,11 @@ export default function UploadImage() {
                 placeholder="วิธีการรักษา"
                 className="w-full p-2 border border-gray-300 rounded"
               />
+              <input
+                type="text"
+                placeholder="ตัวยาในการรักษา"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
 
               <select className="w-full p-2 border border-gray-300 rounded">
                 <option value="">โรคที่ต้องการติดตาม</option>
