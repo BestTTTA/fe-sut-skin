@@ -1,5 +1,3 @@
-// components/Modal.tsx
-
 import React from "react";
 
 interface ModalProps {
@@ -10,16 +8,16 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-      onClick={onClose} // คลิกที่พื้นหลังเพื่อปิด Modal
+      className="fixed inset-0 h-full overflow-auto flex items-center justify-center bg-black bg-opacity-50 z-50"
+      onClick={onClose}
     >
       <div
-        className="bg-white p-6 rounded-lg max-w-4xl w-full relative"
-        onClick={(e) => e.stopPropagation()} // หยุดการแพร่กระจายของเหตุการณ์คลิก
+        className="bg-white p-6 h-[500px] overflow-scroll rounded-lg max-w-4xl w-full relative"
+        onClick={(e) => e.stopPropagation()} 
       >
         <button
           onClick={onClose}
-          className="text-red-500 font-bold absolute top-4 right-4"
+          className="text-black font-bold absolute top-4 right-4"
         >
           X
         </button>

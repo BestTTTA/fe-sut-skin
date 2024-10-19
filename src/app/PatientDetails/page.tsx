@@ -5,7 +5,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
 
-// ดึง API_BASE_URL จากตัวแปรสภาพแวดล้อม
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function PatientDetails() {
@@ -19,7 +18,6 @@ export default function PatientDetails() {
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
 
-  // การจับคู่ระหว่าง diseaseId กับชื่อโรค
   const diseaseOptions: { [key: string]: string } = {
     "1": "Superficial basal cell carcinoma (sBCC)",
     "2": "Actinic keratose",
@@ -30,13 +28,11 @@ export default function PatientDetails() {
 
   const handlePatientIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPatientIdInput(e.target.value);
-    setSearchError(null); // ล้างข้อผิดพลาดเมื่อผู้ใช้เริ่มพิมพ์ใหม่
+    setSearchError(null); 
   };
 
-  // useEffect สำหรับการจัดการการหน่วงเวลา 2 วินาทีหลังจากที่ผู้ใช้หยุดพิมพ์
   useEffect(() => {
     if (patientIdInput.trim() === "") {
-      // ถ้าช่อง input ว่างเปล่า ไม่ต้องค้นหา
       return;
     }
 
@@ -44,27 +40,21 @@ export default function PatientDetails() {
 
     const timer = setTimeout(() => {
       handleSearchById(patientIdInput.trim());
-    }, 2000); // 2000 มิลลิวินาที = 2 วินาที
-
-    // ล้าง Timer ถ้าผู้ใช้พิมพ์ใหม่ก่อน 2 วินาที
+    }, 2500); 
     return () => clearTimeout(timer);
   }, [patientIdInput]);
 
-  // ฟังก์ชันค้นหาข้อมูลผู้ป่วยโดยใช้ Patient ID
   const handleSearchById = async (patientId: string) => {
     console.log("Searching for Patient ID:", patientId);
     try {
       const response = await axios.get(
         `${API_BASE_URL}/patient/${patientId}`
       );
-      console.log("Data received from API:", response.data);
-
-      // ตรวจสอบว่า patient_entities มีข้อมูลหรือไม่
       if (response.data.patient_entities) {
         setSelectedPatient(response.data.patient_entities);
         setSearchError(null);
       } else {
-        setSelectedPatient(null); // ตั้งค่าเป็น null ถ้าไม่มีข้อมูล
+        setSelectedPatient(null);
         setSearchError("ไม่พบข้อมูลผู้ป่วยที่ค้นหา");
       }
 
@@ -80,7 +70,6 @@ export default function PatientDetails() {
     }
   };
 
-  // ฟังก์ชันสำหรับการเปลี่ยนแปลงการเลือกโรค
   const handleDiseaseChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -92,27 +81,24 @@ export default function PatientDetails() {
         const response = await axios.get(
           `${API_BASE_URL}/patients/diseases/${diseaseId}`
         );
-        console.log("Patients fetched:", response.data);
 
-        // ตรวจสอบว่า patient_entities มีข้อมูลหรือไม่
         if (response.data.patient_entities) {
           const patientsArray = Array.isArray(response.data.patient_entities)
             ? response.data.patient_entities
             : [response.data.patient_entities];
           setPatients(patientsArray);
         } else {
-          setPatients([]); // ตั้งค่าเป็นอาร์เรย์ว่างถ้าไม่มีข้อมูล
+          setPatients([]); 
         }
 
-        // ตั้งค่าชื่อโรคที่เลือก
         setSelectedDiseaseName(diseaseOptions[diseaseId] || "");
 
         setIsModalOpen(true);
       } catch (error) {
-        console.error("Error fetching patients", error);
-        setPatients([]); // ตั้งค่าเป็นอาร์เรย์ว่างในกรณีเกิดข้อผิดพลาด
+        setPatients([]); 
         setSelectedDiseaseName(diseaseOptions[diseaseId] || "");
-        setIsModalOpen(true); // เปิด Modal เพื่อแสดงข้อความ 'ไม่มีข้อมูล'
+        setIsModalOpen(true); 
+        console.log(error)
       }
     } else {
       setPatients([]);
@@ -120,31 +106,26 @@ export default function PatientDetails() {
       setSelectedDiseaseName("");
     }
 
-    // รีเซ็ต selectedDisease เพื่อให้สามารถเลือกค่าเดิมได้อีกครั้ง
     setSelectedDisease("");
   };
 
-  // ฟังก์ชันสำหรับการดูรายละเอียดผู้ป่วย
   const handleViewDetails = async (patientId: string) => {
-    console.log("handleViewDetails called with patientId:", patientId);
     try {
       const response = await axios.get(
         `${API_BASE_URL}/patient/${patientId}`
       );
-      console.log("Data received from API:", response.data);
 
-      // ตรวจสอบว่า patient_entities มีข้อมูลหรือไม่
       if (response.data.patient_entities) {
         setSelectedPatient(response.data.patient_entities);
         setSearchError(null);
       } else {
-        setSelectedPatient(null); // ตั้งค่าเป็น null ถ้าไม่มีข้อมูล
+        setSelectedPatient(null); 
         setSearchError("ไม่พบข้อมูลผู้ป่วยที่ค้นหา");
       }
 
       setIsModalOpen(false);
     } catch (error: any) {
-      console.error("Error fetching patient details", error);
+      console.log(error)
       setSearchError(
         error.response?.data?.message || "ไม่สามารถค้นหาข้อมูลผู้ป่วยได้"
       );
