@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Login() {
   return (
     <main className="flex">
-      <div className="flex flex-col w-full h-dvh justify-center items-center bg-[url('/bg-sut.jpg')] bg-cover bg-center">
+      <div className="flex flex-col w-full h-dvh justify-center items-center bg-[url('/bg2.jpg')] bg-cover bg-center">
         <div className="flex flex-col justify-center items-center w-full gap-y-6">
           <Image src="/SUTlogo.png" alt="SUT_Logo" height={300} width={300} />
           <div className="flex flex-col bg-white border border-gray-300 rounded-[20px] shadow-md p-12">
