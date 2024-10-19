@@ -2,14 +2,28 @@
 
 import React from "react";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import Navbar from "../components/Navbar";
 import { LuUploadCloud } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
 import { CiNoWaitingSign } from "react-icons/ci";
+import { NewPatientRequest } from "../type/type";
 
 export default function UploadImage() {
+  const [patientID, setPatientID] = useState<string>("");
+  const handlePatientIDChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPatientID(event.target.value);
+  };
+
+  const [age, setAge] = useState<number>(0);
+  const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newAge = parseInt(event.target.value, 10);
+    setAge(newAge);
+  };
+
   const [selectedDate, setSelectedDate] = useState("");
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(e.target.value);
@@ -42,6 +56,40 @@ export default function UploadImage() {
     accept: { "image/jpeg": [], "image/png": [] },
     multiple: false,
   });
+
+  const patientData: NewPatientRequest = {
+    patient_id: patientID,
+    gender: "male",
+    age: age,
+    treatment: "MAL-PDT",
+    medicines_treatment: "Drug A",
+    diseases_monitored: "Superficial basal cell carcinoma(sBBC)",
+    diseases_id: 1,
+    side_effects: "ไม่มี",
+    image_skin: "http://119.59.99.192:9000/sut-skin-image/skin_image.png",
+    skin_predicted: "http://119.59.99.192:9000/sut-skin-image/predicted.png",
+    date: "19/10/2024",
+  };
+
+  const createPatient = async () => {
+    try {
+      const response = await fetch("http://119.59.99.192:8000/patient/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(patientData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to create patient: ${response.statusText}`);
+      }
+      // return response;
+    } catch (error) {
+      console.error("Error creating patient:", error);
+      throw error;
+    }
+  };
 
   return (
     <div className="bg-white flex flex-col">
@@ -111,6 +159,8 @@ export default function UploadImage() {
             <form className="flex flex-col w-full gap-y-4 bg-white p-8 shadow-lg rounded-lg border-opacity-35 border-2 border-gray-400">
               <input
                 type="text"
+                value={patientID}
+                onChange={handlePatientIDChange}
                 placeholder="Patient ID"
                 className="w-full p-2 border border-gray-300 rounded"
               />
@@ -118,7 +168,9 @@ export default function UploadImage() {
               <div className="flex w-full gap-4 flex-wrap">
                 <input
                   type="number"
+                  value={age}
                   placeholder="อายุ"
+                  onChange={handleAgeChange}
                   className="w-40 flex-auto p-2 border border-gray-300 rounded"
                 />
 
